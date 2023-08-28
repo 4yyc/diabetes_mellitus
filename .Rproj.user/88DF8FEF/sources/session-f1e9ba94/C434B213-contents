@@ -58,3 +58,8 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
+
+```{r input plot rscript_global, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+source("~/Desktop/work/cofit/rd/01r/diabetes_mellitus/r_script/stratified.R")
+```
+

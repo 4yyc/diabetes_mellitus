@@ -1,0 +1,29 @@
+group_name="water"
+all_group_plot_lists <- list()
+
+for (group_name in names(plot_groups)) {
+
+  group_plots <- plot_groups[[group_name]]
+
+  # Create a list to store plots within the group
+  group_plot_list <- list()
+  
+  for (plot_name in group_plots) {
+    # plot_name="delta_eAG_pt"
+    # plot_name="tbwffm_baseline"
+    # plot_name="bmi_baseline"
+    # plot_name="protein_ep_meal"
+    # plot_name="fruits_day_deficit"
+    
+    group_plot_list[[plot_name]] <- plot_collection[[plot_name]]
+  }
+
+  # Combine plots within the same group and arrange them in 2 columns
+  combined_group_plot <- ggarrange(plotlist = group_plot_list, ncol = 2)
+  
+  # Store the combined group plot list
+  all_group_plot_lists[[group_name]] <- combined_group_plot
+  group_plot_list<-list()
+
+  #cat("\n")
+}

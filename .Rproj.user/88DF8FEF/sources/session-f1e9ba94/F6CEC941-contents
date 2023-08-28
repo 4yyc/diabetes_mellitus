@@ -1,0 +1,94 @@
+`r if (knitr::is_html_output()) ' # References {-} '`
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+#source("~/Desktop/work/cofit/rd/01r/diabetes_mellitus/config.R")
+source("~/Desktop/work/cofit/rd/01r/diabetes_mellitus/r_script/stratified.R")
+#grand_plot_list[["fruits"]]
+
+#gridExtra::grid.arrange(grobs = combined_plot)
+```
+
+## 分層分析: 糖尿病(dm) {#strat_1_hba1c}
+
+**依據 hba1c 初始狀態進行分層分析，分成二個組別：**
+
+-   **hba1c低下: (**小於 \<350 ng/dl)
+-   **hba1c正常: (**大於 \>350 ng/dl)
+
+**男性hba1c分組&年齡分佈**
+
+### 糖化血色素分層分析(Stratified Analysis by hba1c) {#stratified_analysis_hba1c .unnumbered}
+
+### 初始狀態(Baseline) {#baseline_testosterone .unnumbered}
+
+#### Inbody {.unnumbered}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width= 12, fig.height=8}
+library(ggpubr)
+
+# Create an empty list to store all group plot lists
+all_group_plot_lists <- list()
+
+plot_groups <- list(
+  fruits = c("delta_eAG_pt", "tbwffm_baseline", "bmi_baseline"),
+  water = c("protein_ep_meal", "fruits_day_deficit")
+)
+
+for (group_name in names(plot_groups)) {
+
+  group_plots <- plot_groups[[group_name]]
+
+  # Create a list to store plots within the group
+  group_plot_list <- list()
+  
+  for (plot_name in group_plots) {
+    
+    group_plot_list[[plot_name]] <- plot_collection[[plot_name]]
+  }
+
+  # Combine plots within the same group and arrange them in 2 columns
+  combined_group_plot <- ggarrange(plotlist = group_plot_list, ncol = 2)
+  
+  # Store the combined group plot list
+  all_group_plot_lists[[group_name]] <- combined_group_plot
+  group_plot_list<-list()
+
+  #cat("\n")
+}
+
+```
+
+#### Blood {.unnumbered}
+
+```{r,  echo=FALSE, message=FALSE, warning=FALSE, fig.width= 12, fig.height=8}
+
+# Access specific group plot lists
+all_group_plot_lists$fruits
+#fruits_group_plot <- all_group_plot_lists$fruits
+#for (i in 1:length(fruits_group_plot)){
+#  print(fruits_group_plot[[i]])
+#}
+#water_group_plot <- all_group_plot_lists$water
+
+#invisible(lapply(grand_plot_list[["water"]], print))   
+#grand_plot_list[["fruits"]]
+
+#for (plot_name in names(grand_plot_list[["fruits"]])) {
+#  print(grand_plot_list[["fruits"]][[plot_name]])}
+
+```
+
+#### Water {.unnumbered}
+
+```{r,  echo=FALSE, message=FALSE, warning=FALSE, fig.width= 12, fig.height=8}
+
+# Access specific group plot lists
+all_group_plot_lists$water
+
+# water_group_plot <- all_group_plot_lists$water
+# for (i in 1:length(water_group_plot)){
+#   print(water_group_plot[[i]])
+# }
+
+```

@@ -1,0 +1,28 @@
+# ... (Previous code)
+
+# Iterate over each plot group and display the plots within each group
+for (group_name in names(plot_groups)) {
+  cat(paste("<", group_name, ">\n"))
+  
+  group_plots <- plot_groups[[group_name]]
+  
+  # Create a list to store plots within the group
+  group_plot_list <- list()
+  
+  for (plot_name in group_plots) {
+    if (plot_name %in% names(plot_collection)) {
+      group_plot_list[[plot_name]] <- plot_collection[[plot_name]]
+    } else {
+      cat("Plot not found:", plot_name, "\n")
+    }
+  }
+  
+  # Combine plots within the same group
+  combined_group_plot <- ggarrange(plotlist = group_plot_list, ncol = 2)
+  
+  for (plot_element in seq_along(combined_group_plot)) {
+    invisible(print(combined_group_plot[[plot_element]]))  # Use invisible() to suppress output
+  }
+  
+  cat("\n")
+}
