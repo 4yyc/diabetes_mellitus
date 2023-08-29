@@ -1,28 +1,23 @@
-`r if (knitr::is_html_output()) ' # References {-} '`
+---
+title: "03-stratified_hba1cgp"
+author: "Yayin Chang"
+date: "2023-08-28"
+output: html_document
+---
+
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 #source("~/Desktop/work/cofit/rd/01r/diabetes_mellitus/config.R")
 source("~/Desktop/work/cofit/rd/01r/diabetes_mellitus/r_script/stratified.R")
-#grand_plot_list[["fruits"]]
-
 #gridExtra::grid.arrange(grobs = combined_plot)
 ```
 
-## 分層分析: 糖尿病(dm) {#strat_1_hba1c}
+**依據糖化血色素改善成效進行分層分析，分成三個組別：**
 
-**依據 hba1c 初始狀態進行分層分析，分成二個組別：**
-
--   **hba1c低下: (**小於 \<350 ng/dl)
--   **hba1c正常: (**大於 \>350 ng/dl)
-
-**男性hba1c分組&年齡分佈**
-
-### 糖化血色素分層分析(Stratified Analysis by hba1c) {#stratified_analysis_hba1c .unnumbered}
-
-### 初始狀態(Baseline) {#baseline_testosterone .unnumbered}
-
-#### Inbody {.unnumbered}
+-   **成效「優異」: ∆HbA1c_conv \>= -1.92**
+-   **「良好」: -1.92 \> ∆HbA1c_conv \>= -0.87**
+-   **「低於預期」: \> ∆HbA1c_conv \> -0.87 )**
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width= 12, fig.height=8}
 library(ggpubr)
@@ -31,9 +26,29 @@ library(ggpubr)
 all_group_plot_lists <- list()
 
 plot_groups <- list(
-  fruits = c("delta_eAG_pt", "tbwffm_baseline", "bmi_baseline"),
-  water = c("protein_ep_meal", "fruits_day_deficit")
+stat.var.profile,
+stat.var.diet,
+stat.var.blood.base,
+stat.var.blood.end,
+stat.var.blood.delta,
+stat.var.blood.delta.pt,
+stat.var.inbody.base,
+stat.var.inbody.end,
+stat.var.inbody.delta,
+stat.var.inbody.delta.pt
 )
+
+names(plot_groups) <- c(
+"stat.var.profile",
+"stat.var.diet",
+"stat.var.blood.base",
+"stat.var.blood.end",
+"stat.var.blood.delta",
+"stat.var.blood.delta.pt",
+"stat.var.inbody.base",
+"stat.var.inbody.end",
+"stat.var.inbody.delta",
+"stat.var.inbody.delta.pt")
 
 for (group_name in names(plot_groups)) {
 
@@ -59,36 +74,64 @@ for (group_name in names(plot_groups)) {
 
 ```
 
-#### Blood {.unnumbered}
+### 初始狀態(Baseline) {#dm_baseline .unnumbered}
 
-```{r,  echo=FALSE, message=FALSE, warning=FALSE, fig.width= 12, fig.height=8}
+#### Inbody {#dm_inbody_inbody .unnumbered}
 
-# Access specific group plot lists
-all_group_plot_lists$fruits
-#fruits_group_plot <- all_group_plot_lists$fruits
-#for (i in 1:length(fruits_group_plot)){
-#  print(fruits_group_plot[[i]])
-#}
-#water_group_plot <- all_group_plot_lists$water
-
-#invisible(lapply(grand_plot_list[["water"]], print))   
-#grand_plot_list[["fruits"]]
-
-#for (plot_name in names(grand_plot_list[["fruits"]])) {
-#  print(grand_plot_list[["fruits"]][[plot_name]])}
-
+```{r }
+all_group_plot_lists["stat.var.inbody.base"]
 ```
 
-#### Water {.unnumbered}
+#### Blood {#dm_blood_baseline .unnumbered}
 
-```{r,  echo=FALSE, message=FALSE, warning=FALSE, fig.width= 12, fig.height=8}
+```{r }
+all_group_plot_lists["stat.var.blood.base"]
+```
 
-# Access specific group plot lists
-all_group_plot_lists$water
+### 飲食(Diet) {#dm_diet_baseline .unnumbered}
 
-# water_group_plot <- all_group_plot_lists$water
-# for (i in 1:length(water_group_plot)){
-#   print(water_group_plot[[i]])
-# }
+```{r }
+all_group_plot_lists["stat.var.diet"]
+```
 
+### 介入後狀態(Endpoint) {#dm_endpoint .unnumbered}
+
+#### Inbody {#dm_inbody_endpoint .unnumbered}
+
+```{r }
+all_group_plot_lists["stat.var.inbody.end"]
+```
+
+#### Blood {#dm_blood_endpointe .unnumbered}
+
+```{r }
+all_group_plot_lists["stat.var.blood.end"]
+```
+
+### ∆成效(Effectiveness) {#dm_delta .unnumbered}
+
+#### Inbody
+
+```{r }
+all_group_plot_lists["stat.var.inbody.delta"]
+```
+
+#### Blood
+
+```{r }
+all_group_plot_lists["stat.var.blood.delta"]
+```
+
+### ∆成效(%)(Effectiveness) {#dm_delta_pt .unnumbered}
+
+#### Inbody
+
+```{r }
+all_group_plot_lists["stat.var.inbody.delta.pt"]
+```
+
+#### Blood
+
+```{r }
+all_group_plot_lists["stat.var.blood.delta.pt"]
 ```
